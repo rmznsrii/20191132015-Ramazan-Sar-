@@ -1,0 +1,72 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-10">
+      <h4>ÜRÜNLER</h4>
+      <table class="table">
+        <thead>
+          <th>Ürün Kodu</th>
+          <th>Ürün Adı</th>
+          <th>Stok</th>
+          <th>Fiyat</th>
+          <th>Açıklama</th>
+          <th>Kayıt Tarihi</th>
+          <th>Güncelleme Tarihi</th>
+          <th>Düzenle</th>
+          <th>Sil</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let kayit of kayitlar">
+            <td>{{kayit.urunkodu}}</td>
+            <td>{{kayit.urunadi}}</td>
+            <td>{{kayit.stok}}</td>
+            <td>{{kayit.fiyat}}</td>
+            <td>{{kayit.aciklama}}</td>
+            <td>{{kayit.kayTarih | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td>{{kayit.duzTarih | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td><button class="btn btn-outline-warning" (click)="KayitDuzenle(kayit)">Düzenle</button></td>
+            <td><button class="btn btn-outline-danger" (click)="KayitSil(kayit)">Sil</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <hr>
+    </div>
+    <div class="col-md-12">
+      <h4>Kayıt Ekle Düzenle</h4>
+      <hr>
+      <form #frm="ngForm" (submit)="Kaydet()">
+        <div class="form-group">
+          <label>Ürün Adı</label>
+          <input type="text" class="form-control" name="adsoyad" [(ngModel)]="secKayit.urunadi" required>
+          <input type="hidden" class="form-control" name="key" [(ngModel)]="secKayit.key">
+        </div>
+        <div class="form-group">
+          <label>Ürün Kodu</label>
+          <input type="text" class="form-control" name="urunkodu" [(ngModel)]="secKayit.urunkodu" required>
+          <input type="hidden" class="form-control" name="key" [(ngModel)]="secKayit.key">
+        </div>
+        <div class="form-group">
+          <label>Stok</label>
+          <input type="text" class="form-control" name="stok" [(ngModel)]="secKayit.stok" required>
+        </div>
+        <div class="form-group">
+          <label>Fiyat</label>
+          <input type="text" class="form-control" name="tel" [(ngModel)]="secKayit.fiyat" required>
+        </div>
+        <div class="form-group">
+          <label>Açıklama</label>
+          <textarea class="form-control" name="adres" [(ngModel)]="secKayit.aciklama" required></textarea>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Kaydet" class="btn btn-outline-success" [disabled]="frm.invalid">
+
+        </div>
+      </form>
+      <button class="btn btn-outline-danger" (click)="Vazgec()">Vazgeç</button>
+      <div [ngClass]="sonuc.islem ? 'alert alert-success':'alert alert-danger'" *ngIf="sonuc.mesaj?.length>0">
+        {{sonuc.mesaj}}</div>
+    </div>
+  </div>
+</div>
+
+
+
